@@ -1,0 +1,52 @@
+<%= form_with(model: blog) do |form| %>
+  <% if blog.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(blog.errors.count, "error") %> prohibited this blog from being saved:</h2>
+
+      <ul>
+        <% blog.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :Image,class:"form-label" %>
+    <%= form.file_field :image ,class:"form-control" ,direct_upload: true%>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :title,class:"form-label" %>
+    <%= form.text_field :title ,class:"form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :body,class:"form-label"%>
+    <%= form.rich_text_area:body ,class:"form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :Categories,class:"form-label" %>
+    <%= form.select :category_id ,Category.all.map{|c| [c.category,c.id]},class:"form-control" %>
+  </div>
+
+
+
+  <div class="mb-3">
+    <%= form.text_field :user_id,class:"form-control",id: :blog_user_id,value: current_user.id,type: :hidden%>
+     <%#= form.hidden_field :user_id, value: @user %>
+     <%#= form.text_field :user_id,class:"form-control",id: :friend_user_id,value:current_user.id,type: :hidden %>
+    <br />
+
+  </div>
+
+
+
+
+  <div class="actions">
+    <%= form.submit class:'btn btn-secondary'%>
+  </div>
+<% end %>
+
+
